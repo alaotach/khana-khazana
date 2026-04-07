@@ -39,15 +39,20 @@
             color: #333;
             line-height: 1.6;
         }
+        .recipe-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="recipe-details">
         <h1>{{ recipe.name }}</h1>
         <p><strong>Ingredients:</strong></p>
-        <p>{{ recipe.ing }}</p>
+        <div>{{ recipe.ing|safe }}</div>
         <p><strong>Instructions:</strong></p>
-        <p>{{ recipe.ins }}</p>
+        <div>{{ recipe.ins|safe }}</div>
         <p style="text-align:center;"><a href="{{ url_for('recipes') }}" style="color:#ff6347; font-weight:bold; text-decoration:none;">Back to Recipes</a></p>
     </div>
 </body>

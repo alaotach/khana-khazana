@@ -1,9 +1,12 @@
 import uuid
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, url_for
 from db import Database
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 db = Database("recipes.db")
+os.makedirs("static/uploads", exist_ok=True)
 
 @app.route('/')
 def home():
@@ -43,5 +46,18 @@ def create_recipe():
                        (recipe_id, name, ing, ins))
     return render_template('create.html')
 
-if __name__ == '__main__':    
+@app.route("/upload", methods=["POST"])
+def upload():
+    if 'upload' not in request.files:
+        return "No file part", 400
+    file = request.files['upload']
+    if file.filename == '':
+        return "No selected file", 400
+
+    filename = secure_filename(file.filename)
+    file.save(os.path.join("static", "uploads", filename))
+
+    return jsonify({"uploaded": 1, "fileName": filename, "url": url_for('static', filename=f'uploads/{filename}')})
+
+if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=3459)
