@@ -47,7 +47,8 @@
     </style>
 </head>
 <body>
-    <div class="recipe-details">
+    {% include "nav.html" %}
+    <div class="recipe-details" style="margin-top: 80px;">
         <h1>{{ recipe.name }}</h1>
         <p><strong>Ingredients:</strong></p>
         <div>{{ recipe.ing|safe }}</div>

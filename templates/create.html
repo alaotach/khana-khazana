@@ -68,7 +68,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    {% include "nav.html" %}
+    <div class="container" style="margin-top: 80px;">
         <h1>Create a New Recipe</h1>
         <form action="{{ url_for('create_recipe') }}" method="post">
             <div class="form-group">
